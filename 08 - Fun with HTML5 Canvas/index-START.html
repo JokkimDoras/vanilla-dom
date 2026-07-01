@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+<script>
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d')
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.strokeStyle = '#BADASS';
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 100;
+
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let hue = 0;
+
+  function draw(e){
+    if(!isDrawing) return;
+      console.log(e)
+      ctx.strokeStyle = `hsl(${hue},100%, 50%)`
+      ctx.beginPath();
+      lastX = e.clientX;
+      lastY = e.clientY
+      ctx.moveTo(lastX,lastY);
+      ctx.lineTo(e.offsetX,e.offsetY);
+      ctx.stroke();
+      hue ++
+   
+  }
+
+  canvas.addEventListener('mousemove',draw)
+  canvas.addEventListener('mousedown',() => {
+    isDrawing = !isDrawing;
+    [lastX,lastY] = [e.clientX,e.clientY]
+  })
+
+  
+
+
+</script>
+
+</body>
+</html>
